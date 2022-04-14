@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.8
@@ -27,18 +25,40 @@ jobs:
     - name: Install dependencies
       run: |
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install test package
+      run: |
         pip install pytest
     - name: Test with pytest
       run: |
         pytest
 
-    # - name: Commit files # transfer the new html files back into the repository
-    #   run: |
-    #     git config --local user.name "jpadfield"
-    #     git add ./docs
-    #     git commit -m "Updating the repository GitHub html pages in the docs folder"
-    # - name: Push changes # push the output folder to your repo
-    #   uses: ad-m/github-push-action@master
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     force: true
+  # benchmark:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Benchmark test
+  #     run: |
+  #       python cvxpy/benchmarks/run_benchmark.py
+
+  # commit:
+  #   needs: benchmark
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Commit files # transfer the new html files back into the repository
+  #     run: |
+  #       git config --local user.name "jpadfield"
+  #       git add ./docs
+  #       git commit -m "Updating the repository GitHub html pages in the docs folder"
+  #   - name: Push changes # push the output folder to your repo
+  #     uses: ad-m/github-push-action@master
+  #     with:
+  #       github_token: ${{ secrets.GITHUB_TOKEN }}
+  #       force: true
