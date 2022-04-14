@@ -26,11 +26,11 @@ jobs:
       run: |
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
+  # test:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
     - name: Install test package
       run: |
         pip install pytest
@@ -43,22 +43,25 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #   - uses: actions/checkout@v3
-  #   - name: Benchmark test
-  #     run: |
-  #       python cvxpy/benchmarks/run_benchmark.py
+    - name: Install benchmark package
+      run: |
+        pip install -r requirements_benchmark.txt
+    - name: Benchmark test
+      run: |
+        python cvxpy/benchmarks/run_benchmarks.py
 
   # commit:
   #   needs: benchmark
   #   runs-on: ubuntu-latest
   #   steps:
   #   - uses: actions/checkout@v3
-  #   - name: Commit files # transfer the new html files back into the repository
-  #     run: |
-  #       git config --local user.name "jpadfield"
-  #       git add ./docs
-  #       git commit -m "Updating the repository GitHub html pages in the docs folder"
-  #   - name: Push changes # push the output folder to your repo
-  #     uses: ad-m/github-push-action@master
-  #     with:
-  #       github_token: ${{ secrets.GITHUB_TOKEN }}
-  #       force: true
+    # - name: Commit files # transfer the new html files back into the repository
+    #   run: |
+    #     git config --local user.name "benchmarkjob"
+    #     git add -f cvxpy/benchmarks/benchmark_report.md
+    #     git commit -m "Updating benchmark result"
+    # - name: Push changes # push the output folder to your repo
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     force: true
