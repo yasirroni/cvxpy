@@ -41,7 +41,8 @@ jobs:
         git add -f cvxpy/benchmarks/benchmark_report.md
         git commit -m "Updating benchmark result"
     - name: Push changes 
-      uses: ad-m/github-push-action@master
+      uses: ad-m/github-push-action@v0.6.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        force: true
+        repository: git@github.com:${{ github.actor }}/cvxpy.git
+        branch: ${{ github.head_ref }}
