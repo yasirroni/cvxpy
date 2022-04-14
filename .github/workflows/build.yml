@@ -55,13 +55,13 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #   - uses: actions/checkout@v3
-    # - name: Commit files # transfer the new html files back into the repository
-    #   run: |
-    #     git config --local user.name "benchmarkjob"
-    #     git add -f cvxpy/benchmarks/benchmark_report.md
-    #     git commit -m "Updating benchmark result"
-    # - name: Push changes # push the output folder to your repo
-    #   uses: ad-m/github-push-action@master
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     force: true
+    - name: Commit files # transfer the new html files back into the repository
+      run: |
+        git config --local user.name "benchmarkjob"
+        git add -f cvxpy/benchmarks/benchmark_report.md
+        git commit -m "Updating benchmark result"
+    - name: Push changes # push the output folder to your repo
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        force: true
