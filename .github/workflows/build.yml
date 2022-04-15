@@ -38,7 +38,7 @@ jobs:
         git config user.email github-actions@github.com
         git add .
         git commit -m "generated"
-        git push https://${{ secrets.GITHUB_PAT }}@github.com/${{ github.actor }}/cvxpy.git
+        git push https://${{ secrets.GITHUB_PAT }}@github.com/${{ github.actor }}/cvxpy.git HEAD:${{ github.head_ref }}
         
     # git remote add dev git@github.com:${{ github.actor }}/cvxpy.git
     # git push dev HEAD:${{ github.head_ref }}
