@@ -48,6 +48,11 @@ jobs:
     #   run: |
     #     python cvxpy/benchmarks/run_benchmarks.py
 
+  # dummy create file
+    - name: Create file
+      run: |
+        touch cvxpy/benchmarks/benchmark_report.md
+
   # commit:
   #   needs: benchmark
   #   runs-on: ubuntu-latest
@@ -62,4 +67,5 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        force: true
+        repository: git@github.com:${{ github.actor }}/cvxpy
+        branch: ${{ github.head_ref }}
