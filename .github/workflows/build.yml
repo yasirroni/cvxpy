@@ -1,10 +1,8 @@
 name: free-build
 
 on:
-  push:
-    branches: [ benchmark2 ]
   pull_request:
-    branches: [ benchmark2 ]
+    branches: [ master ]
 
 jobs:
   build:
