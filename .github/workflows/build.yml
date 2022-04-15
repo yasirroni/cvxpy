@@ -31,6 +31,15 @@ jobs:
       run: |
         python cvxpy/benchmarks/run_benchmarks.py
 
+    - name: commit
+      run: |
+        date > generated.txt
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "generated"
+        git push
+
   # # dummy create file
   #   - name: Create file
   #     run: |
@@ -41,14 +50,15 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #   - uses: actions/checkout@v3
-    - name: Commit files # transfer the new html files back into the repository
-      run: |
-        git config --local user.name "benchmarkjob"
-        git add -f cvxpy/benchmarks/benchmark_report.md
-        git commit -m "Updating benchmark result"
-    - name: Push changes # push the output folder to your repo
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        repository: git@github.com:${{ github.actor }}/cvxpy
-        branch: ${{ github.head_ref }}
+    # - name: Commit files # transfer the new html files back into the repository
+    #   run: |
+    #     git config --local user.name "benchmarkjob"
+    #     git add -f cvxpy/benchmarks/benchmark_report.md
+    #     git commit -m "Updating benchmark result"
+    # - name: Push changes # push the output folder to your repo
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     repository: git@github.com:${{ github.actor }}/cvxpy
+    #     branch: ${{ github.head_ref }}
+
