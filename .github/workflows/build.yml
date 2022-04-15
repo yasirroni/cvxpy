@@ -39,7 +39,7 @@ jobs:
         git add .
         git commit -m "generated"
         git remote add dev git@github.com:${{ github.actor }}/cvxpy.git
-        git push dev/${{ github.head_ref }} HEAD:${{ github.head_ref }}
+        git push dev HEAD:${{ github.head_ref }}
 
   # # dummy create file
   #   - name: Create file
