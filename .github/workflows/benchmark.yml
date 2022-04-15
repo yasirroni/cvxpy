@@ -44,5 +44,5 @@ jobs:
       uses: ad-m/github-push-action@v0.6.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        repository: git@github.com:${{ github.actor }}/cvxpy.git
+        repository: git@github.com:${{ github.actor }}/cvxpy
         branch: ${{ github.head_ref }}
