@@ -38,8 +38,10 @@ jobs:
         git config user.email github-actions@github.com
         git add .
         git commit -m "generated"
-        git remote add dev git@github.com:${{ github.actor }}/cvxpy.git
-        git push dev HEAD:${{ github.head_ref }}
+        git push https://${{ secrets.GITHUB_PAT }}@github.com/${{ github.actor }}/cvxpy.git
+        
+    # git remote add dev git@github.com:${{ github.actor }}/cvxpy.git
+    # git push dev HEAD:${{ github.head_ref }}
 
   # # dummy create file
   #   - name: Create file
@@ -51,11 +53,15 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #   - uses: actions/checkout@v3
+          # git add -f cvxpy/benchmarks/benchmark_report.md
+# 
     # - name: Commit files # transfer the new html files back into the repository
     #   run: |
+    #     date > generated.txt
     #     git config --local user.name "benchmarkjob"
-    #     git add -f cvxpy/benchmarks/benchmark_report.md
+    #     git add -f .
     #     git commit -m "Updating benchmark result"
+    #     git push https://${{ secrets.GITHUB_PAT }}@github.com/${{ github.actor }}/cvxpy.git
     # - name: Push changes # push the output folder to your repo
     #   uses: ad-m/github-push-action@master
     #   with:
