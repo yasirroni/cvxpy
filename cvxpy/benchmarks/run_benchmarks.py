@@ -30,8 +30,8 @@ import cvxpy
 # from cvxpy.benchmarks.qp_1611_benchmark import QP1611Benchmark
 # from cvxpy.benchmarks.sdp_segfault_1132_benchmark import (
 #     SDPSegfault1132Benchmark)
-from cvxpy.benchmarks.simple_LP_benchmarks import (  # SimpleFullyParametrizedLPBenchmark,
-    SimpleLPBenchmark, SimpleScalarParametrizedLPBenchmark,)
+from cvxpy.benchmarks.simple_LP_benchmarks import (
+    SimpleScalarParametrizedLPBenchmark,)  # SimpleFullyParametrizedLPBenchmark,; SimpleLPBenchmark,
 
 
 class BenchmarkSuite(ABC):
@@ -45,7 +45,7 @@ class BenchmarkSuite(ABC):
         benchmarks = [
             # CVaRBenchmark, # missing data
             # QP1611Benchmark, # cause scipy MemoryError: bad allocation
-            SimpleLPBenchmark,
+            # SimpleLPBenchmark,
             SimpleScalarParametrizedLPBenchmark,
             # SimpleFullyParametrizedLPBenchmark, # cause scipy MemoryError: bad allocation
             # SDPSegfault1132Benchmark, # cause scipy MemoryError: bad allocation
