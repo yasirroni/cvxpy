@@ -30,7 +30,7 @@ jobs:
       run: |
         python cvxpy/benchmarks/run_benchmarks.py
     - name: Render benchmark_report.md
-      id: template
+      id: benchmark_head
       uses: chuhlomin/render-template@v1.4
       with:
         template: cvxpy/benchmarks/benchmark_report.md
@@ -38,4 +38,26 @@ jobs:
       uses: peter-evans/create-or-update-comment@v2
       with:
         issue-number: ${{ github.event.pull_request.number }}
-        body: ${{ steps.template.outputs.result }}
+        body: ${{ steps.benchmark_head.outputs.result }}
+
+    # Ref
+    - name: Get latest release
+      id: get_release
+      run: |
+          echo "REF=$(git describe --tags --abbrev=0 --match v[1-9]* $(git rev-list --tags --max-count=1))" >> $GITHUB_ENV
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.REF }}
+    - name: Benchmark test
+      run: |
+        python cvxpy/benchmarks/run_benchmarks.py
+    - name: Render benchmark_report.md
+      id: benchmark_ref
+      uses: chuhlomin/render-template@v1.4
+      with:
+        template: cvxpy/benchmarks/benchmark_report.md
+    - name: Create comment
+      uses: peter-evans/create-or-update-comment@v2
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: ${{ steps.benchmark_ref.outputs.result }}
